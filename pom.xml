@@ -71,7 +71,7 @@
               <manifest>
                 <groupId>org.jboss.eap.channels</groupId>
                 <artifactId>eap-8.0</artifactId>
-                <!--<version>1.0.1.GA-redhat-00001</version>-->
+                <version>1.0.1.GA-redhat-00001</version>
               </manifest>
             </channel>
           </channels>
