@@ -1,10 +1,12 @@
 package com.example.app;
 
 import jakarta.annotation.Resource;
+import jakarta.annotation.security.DeclareRoles;
 import jakarta.ejb.SessionContext;
 import jakarta.ejb.Stateless;
 
 @Stateless
+@DeclareRoles({"user"})
 public class StatelessEJB implements StatelessEJBLocal {
 
 	@Resource
