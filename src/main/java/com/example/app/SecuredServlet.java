@@ -1,10 +1,6 @@
 package com.example.app;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
-import java.util.Set;
-
+import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.wildfly.security.auth.server.SecurityDomain;
 import org.wildfly.security.auth.server.SecurityIdentity;
 import org.wildfly.security.authz.Attributes;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.Principal;
+import java.util.Set;
 /**
  * A simple secured HTTP servlet. It returns the user name and
  * attributes obtained from the logged-in user's Principal. If
@@ -22,6 +23,9 @@ import org.wildfly.security.authz.Attributes;
 
 @WebServlet("/secured")
 public class SecuredServlet extends HttpServlet {
+
+	@EJB
+	private StatelessEJBLocal statelessEJB;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,6 +52,9 @@ public class SecuredServlet extends HttpServlet {
 			writer.print("'");
 			writer.print(user != null ? "\n" + attributes : "");
 			writer.println("    </p>");
+			if (statelessEJB != null) {
+				writer.print("<p>statelessEJB: " + statelessEJB.getSecurityInformation() + "</p>");
+			}
 			writer.println("  </body>");
 			writer.println("</html>");
 		}
