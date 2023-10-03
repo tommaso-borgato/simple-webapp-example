@@ -79,28 +79,19 @@
         <version>${version.maven.war.plugin}</version>
       </plugin>
       <plugin>
-        <groupId>org.jboss.eap.plugins</groupId>
-        <artifactId>eap-maven-plugin</artifactId>
-        <version>${version.eap.plugin}</version>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <version>4.2.0.Final</version>
         <configuration>
-          <channels>
-            <channel>
-              <manifest>
-                <groupId>org.jboss.eap.channels</groupId>
-                <artifactId>eap-8.0</artifactId>
-                <version>1.0.1.GA-redhat-00001</version>
-              </manifest>
-            </channel>
-          </channels>
           <feature-packs>
             <feature-pack>
-              <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+              <location>org.wildfly:wildfly-ee-galleon-pack:30.0.0.Beta1</location>
             </feature-pack>
             <feature-pack>
-              <location>org.jboss.eap.cloud:eap-cloud-galleon-pack</location>
+              <location>org.wildfly.cloud:wildfly-cloud-galleon-pack:5.0.0.Beta2</location>
             </feature-pack>
             <feature-pack>
-              <location>org.keycloak:keycloak-saml-adapter-galleon-pack:22.0.3.redhat-00001</location>
+              <location>org.keycloak:keycloak-saml-adapter-galleon-pack:22.0.3</location>
             </feature-pack>
           </feature-packs>
           <layers>
@@ -122,4 +113,62 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>eap</id>
+      <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>${version.maven.war.plugin}</version>
+          </plugin>
+          <plugin>
+            <groupId>org.jboss.eap.plugins</groupId>
+            <artifactId>eap-maven-plugin</artifactId>
+            <version>${version.eap.plugin}</version>
+            <configuration>
+              <channels>
+                <channel>
+                  <manifest>
+                    <groupId>org.jboss.eap.channels</groupId>
+                    <artifactId>eap-8.0</artifactId>
+                    <version>1.0.1.GA-redhat-00001</version>
+                  </manifest>
+                </channel>
+              </channels>
+              <feature-packs>
+                <feature-pack>
+                  <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                </feature-pack>
+                <feature-pack>
+                  <location>org.jboss.eap.cloud:eap-cloud-galleon-pack</location>
+                </feature-pack>
+                <feature-pack>
+                  <location>org.keycloak:keycloak-saml-adapter-galleon-pack:22.0.3.redhat-00001</location>
+                </feature-pack>
+              </feature-packs>
+              <layers>
+                <layer>cloud-server</layer>
+                <layer>keycloak-saml</layer>
+                <layer>ejb-lite</layer>
+              </layers>
+              <galleon-options>
+                <jboss-fork-embedded>true</jboss-fork-embedded>
+              </galleon-options>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>package</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
