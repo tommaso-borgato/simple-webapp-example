@@ -1,0 +1,17 @@
+build:
+  uri: https://github.com/tommaso-borgato/simple-webapp-example.git
+  env:
+    - name: "MAVEN_MIRROR_URL"
+      value: "http://..."
+deploy:
+  volumes:
+    - name: saml-keystore-volume
+      secret:
+        secretName: saml-app-secret
+  volumeMounts:
+    - name: saml-keystore-volume
+      mountPath: /etc/sso-saml-secret-volume
+      readOnly: true
+  envFrom:
+    - secretRef:
+        name: saml-secret
