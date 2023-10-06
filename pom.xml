@@ -153,7 +153,7 @@
               <layers>
                 <layer>cloud-server</layer>
                 <layer>keycloak-saml</layer>
-                <layer>ejb-lite</layer>
+                <!--<layer>ejb-lite</layer>-->
               </layers>
               <galleon-options>
                 <jboss-fork-embedded>true</jboss-fork-embedded>
