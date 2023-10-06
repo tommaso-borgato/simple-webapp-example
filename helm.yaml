@@ -1,3 +1,5 @@
+# helm install saml-app -f helm.yaml jboss-eap/eap8
+# helm uninstall saml-app
 build:
   uri: https://github.com/tommaso-borgato/simple-webapp-example.git
   env:
